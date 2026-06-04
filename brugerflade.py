@@ -54,12 +54,12 @@ def window():
     def summ():
         sumv1vec = str(v1.get()).replace("(", "").replace(")", "").split(",")
         sumv2vec = str(v2.get()).replace("(", "").replace(")", "").split(",")
-        print(sumv1vec, sumv2vec)
+        print(*sumv1vec, *sumv2vec)
 
     def diff():
-        difv1float = float(difv1.get())
-        difv2float = float(difv2.get())
-        print(difv1float, difv2float)
+        difv1vec = str(difv1.get()).replace("(", "").replace(")", "").split(",")
+        difv2vec = str(difv2.get()).replace("(", "").replace(")", "").split(",")
+        print(*difv1vec, *difv2vec)
 
     dot = tkinter.Button(dotframe, text="dot dem", command=dott)
     dot.place(x=100, y=100)
