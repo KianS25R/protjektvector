@@ -4,6 +4,6 @@
 
 import tkinter
 import matplotlib
-import kmath
 
 ## main window ##
+
