@@ -47,9 +47,9 @@ def window():
 
 
     def dott():
-        dotv1float = float(dotv1.get())
-        dotv2float = float(dotv2.get())
-        print(dotv1float, dotv2float)
+        dotv1vec = str(dotv1.get()).replace("(", "").replace(")", "").split(",")
+        dotv2vec = str(dotv2.get()).replace("(", "").replace(")", "").split(",")
+        print(*dotv1vec, *dotv2vec)
 
     def summ():
         sumv1vec = str(v1.get()).replace("(", "").replace(")", "").split(",")
