@@ -6,4 +6,3 @@ import tkinter
 import matplotlib
 
 ## main window ##
-
