@@ -106,16 +106,30 @@ def TvaerVektor(x,y):
     return(x1,y1,"eller",x2,y2)
 
 def EnhedsVektorFra2DVektor(x,y):
-    return 0
+    x=x/math.sqrt(x**2+y**2)
+    y=y/math.sqrt(x**2+y**2)
+    return(x,y)
 
 def EnhedsVektorFra3DVektor(x,y,z):
-    return 0
+    x=x/math.sqrt(x**2+y**2+z**2)
+    y=y/math.sqrt(x**2+y**2+z**2)
+    z=z/math.sqrt(x**2+y**2+z**2)
+    return(x,y,z)
 
-def Krydsprodukt(x,y,z):
-    return 0
+def Krydsprodukt(x1,y1,z1,x2,y2,z2):
+    x=(y1*z2)-(z1*y2)
+    y=(z1*x2)-(x1*z2)
+    z=(x1*y2)-(y1*x2)
+    return (x,y,z)
 
-def Projekter2DVektor(x1,y1,x2,y2):
-    return 0
+def ProjekterVektorUdFraPolær(længdeV1,vinkelMellemVektorV1OgV2):
+    v1ProjekteretPåV2=længdeV1*math.cos(math.radians(vinkelMellemVektorV1OgV2))
+    return v1ProjekteretPåV2
 
-def Projekter3DVektor(x1,y1,z1,x2,y2,z2):
-    return 0
+def Projekter2DVektorUdFraKartesian(x1,y1,x2,y2):
+    v1ProjekteretPåV2=math.sqrt(x1**2+y1**2)*((x1*x2+y1*y2)/(math.sqrt(x1**2+y1**2)*math.sqrt(x2**2+y2**2)))
+    return v1ProjekteretPåV2
+
+def Projekter3DVektorUdFraKartesian(x1,y1,z1,x2,y2,z2):
+    v1ProjekteretPåV2=math.sqrt(x1**2+y1**2+z1**2)*((x1*x2+y1*y2+z1*z2)/(math.sqrt(x1**2+y1**2+z1**2)*math.sqrt(x2**2+y2**2+z2**2)))
+    return v1ProjekteretPåV2
