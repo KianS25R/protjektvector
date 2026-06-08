@@ -59,6 +59,16 @@ def window():
     def Protjekter():
         global aop
         aop = "Protjekter"
+        v2label.config(text="V2:")
+        v2label.config(state="normal")
+        v2.config(state="normal")
+
+    def Enhed():
+        global aop
+        aop = "Enhed"
+        v2label.config(text="V2:")
+        v2label.config(state="normal")
+        v2.config(state="normal")
 
     frame = tkinter.Frame(vindue, height=155, width=275, bg="#e9e9e9")
     menu = tkinter.Menu(vindue)
@@ -70,6 +80,8 @@ def window():
     operation.add_command(label="Scalar", command=scal)
     operation.add_command(label="Længde", command=length)
     operation.add_command(label="Vinkel", command=vinkel)
+    operation.add_command(label="Protjekter", command=Protjekter)
+    operation.add_command(label="Enhed", command=Enhed)
     v1label = tkinter.Label(frame, text="V1:")
     v1label.place(x=0, y=25)
     v1 = tkinter.Entry(frame)
@@ -103,6 +115,10 @@ def window():
                         toreturn = f"resultat: {vectorlib.Prikprodukt2DVektor(*fuldvec2)}"
                     if aop == "Sub":
                         toreturn = f"resultat: {vectorlib.Differens2DVektor(*fuldvec2)}"
+                    if aop == "Protjekter":
+                        toreturn = f"resultat: {[round(x, 3) for x in vectorlib.Projekter2DVektorUdFraKartesian(*fuldvec2)]}"
+                    if aop == "Enhed":
+                        toreturn = f"resultat: {[round(x, 3) for x in vectorlib.EnhedsVektorFra2DVektor(*vectorlib.Sum2DVektor(*fuldvec2))]}"
                     if aop == "Vinkel":
                         toreturn = f"resultat: {vectorlib.VinkelIForholdTilHindanen2DVektor(*fuldvec2)}"
             if aop == "Length":
@@ -122,8 +138,12 @@ def window():
                         toreturn = f"resultat: {vectorlib.Prikprodukt3DVektor(*fuldvec2)}"
                     if aop == "Sub":
                         toreturn = f"resultat: {vectorlib.Differens3DVektor(*fuldvec2)}"
+                    if aop == "Protjekter":
+                        toreturn = f"resultat: {vectorlib.Projekter3DVektorUdFraKartesian(*fuldvec2)}"
                     if aop == "Vinkel":
                         toreturn = f"resultat: {vectorlib.VinkelIForholdTilHindanen3DVektor(*fuldvec2)}"
+                    if aop == "Enhed":
+                        toreturn = f"resultat: {[round(x, 3) for x in vectorlib.EnhedsVektorFra3DVektor(*vectorlib.Sum3DVektor(*fuldvec2))]}"
             if aop == "Length":
                 toreturn = f"resultat: |V1| =  {vectorlib.Længde3DVektor(*fuldvec2)}"
         res.config(text=toreturn)
