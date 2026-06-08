@@ -12,65 +12,78 @@ def window():
     vindue = tkinter.Tk()
     vindue.title("GUI")
     vindue.geometry("875x800")
+    aop = "Sum"
 
-    sumframe = tkinter.Frame(vindue, height=125, width=275, bg="#e9e9e9")
-    v1label = tkinter.Label(sumframe, text="V1:")
+    def sumq():
+        global aop
+        aop = "Sum"
+
+    def dot():
+        global aop
+        aop = "Dot"
+
+    def sube():
+        global aop
+        aop = "Sub"
+
+    def scal():
+        global aop
+        aop = "Scalar"
+
+    frame = tkinter.Frame(vindue, height=125, width=275, bg="#e9e9e9")
+    menu = tkinter.Menu(vindue)
+    operation = tkinter.Menu(menu)
+    menu.add_cascade(menu=operation, label="Operation")
+    operation.add_command(label="Sum", command=sumq)
+    operation.add_command(label="Dot", command=dot)
+    operation.add_command(label="Sub", command=sube)
+    operation.add_command(label="Scalar", command=scal)
+    v1label = tkinter.Label(frame, text="V1:")
     v1label.place(x=0, y=25)
-    v1 = tkinter.Entry(sumframe)
+    v1 = tkinter.Entry(frame)
     v1.place(x=0, y=50)
-    v2label = tkinter.Label(sumframe, text="V2:")
+    v2label = tkinter.Label(frame, text="V2:")
     v2label.place(x=150, y=25)
-    v2 = tkinter.Entry(sumframe)
+    v2 = tkinter.Entry(frame)
     v2.place(x=150, y=50)
 
 
-    difframe = tkinter.Frame(vindue, height=125, width=275, bg="#e9e9e9")
-    difv1label = tkinter.Label(difframe, text="V1:")
-    difv1label.place(x=0, y=25)
-    difv1 = tkinter.Entry(difframe)
-    difv1.place(x=0, y=50)
-    difv2label = tkinter.Label(difframe, text="V2:")
-    difv2label.place(x=150, y=25)
-    difv2 = tkinter.Entry(difframe)
-    difv2.place(x=150, y=50)
-
-
-    dotframe = tkinter.Frame(vindue, height=125, width=275, bg="#e9e9e9")
-    dotv1label = tkinter.Label(dotframe, text="V1:")
-    dotv1label.place(x=0, y=25)
-    dotv1 = tkinter.Entry(dotframe)
-    dotv1.place(x=0, y=50)
-    dotv2label = tkinter.Label(dotframe, text="V2:")
-    dotv2label.place(x=150, y=25)
-    dotv2 = tkinter.Entry(dotframe)
-    dotv2.place(x=150, y=50)
-
-
     def dott():
-        dotv1vec = str(dotv1.get()).replace("(", "").replace(")", "").split(",")
-        dotv2vec = str(dotv2.get()).replace("(", "").replace(")", "").split(",")
-        print(*dotv1vec, *dotv2vec)
+        global aop
+        dotv1vec = str(v1.get()).replace("(", "").replace(")", "").split(",")
+        dotv2vec = str(v2.get()).replace("(", "").replace(")", "").split(",")
+        dotv1vec = [float(x) for x in dotv1vec]
+        dotv2vec = [float(x) for x in dotv2vec]
+        if len(dotv1vec) == 2:
+            if aop == "Scalar":
+                if len(dotv2vec) == 1:
+                    pass
+            if aop != "Scalar":
+                if len(dotv2vec) == 2:
+                    if aop == "Sum":
+                        pass
+                    if aop == "Dot":
+                        pass
+                    if aop == "Sub":
+                        pass
+        if len(dotv1vec) == 3:
+            if aop == "Scalar":
+                if len(dotv2vec) == 1:
+                    pass
+            if aop != "Scalar":
+                if len(dotv2vec) == 3:
+                    if aop == "Sum":
+                        pass
+                    if aop == "Dot":
+                        pass
+                    if aop == "Sub":
+                        pass
 
-    def summ():
-        sumv1vec = str(v1.get()).replace("(", "").replace(")", "").split(",")
-        sumv2vec = str(v2.get()).replace("(", "").replace(")", "").split(",")
-        print(*sumv1vec, *sumv2vec)
-
-    def diff():
-        difv1vec = str(difv1.get()).replace("(", "").replace(")", "").split(",")
-        difv2vec = str(difv2.get()).replace("(", "").replace(")", "").split(",")
-        print(*difv1vec, *difv2vec)
-
-    dot = tkinter.Button(dotframe, text="dot dem", command=dott)
+    dot = tkinter.Button(frame, text="Beregn", command=dott)
     dot.place(x=100, y=100)
-    dotframe.place(x=600, y=0)
+    frame.place(x=600, y=0)
+    vindue.config(menu=menu)
+    vindue.update()
 
-    dif = tkinter.Button(difframe, text="minus dem", command=diff)
-    dif.place(x=100, y=100)
-    difframe.place(x=300, y=0)
-
-    sumb = tkinter.Button(sumframe, text="læg sammen", command=summ)
-    sumb.place(x=100, y=100)
-    sumframe.place(x=0, y=0)
 
     vindue.mainloop()
