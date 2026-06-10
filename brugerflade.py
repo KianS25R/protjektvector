@@ -141,7 +141,6 @@ def window():
     v2.place(x=150, y=50)
     canvas.get_tk_widget().place(x=276, y=0)
 
-
     def dott():
         global aop
         global toreturn
