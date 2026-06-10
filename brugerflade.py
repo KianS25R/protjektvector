@@ -16,7 +16,6 @@ def window():
     vindue.geometry("275x155")
     global aop
     global toreturn
-
     def sumq():
         global aop
         aop = "Sum"
@@ -160,7 +159,7 @@ def window():
                     if aop == "Sub":
                         toreturn = f"resultat: {vectorlib.Differens2DVektor(*fuldvec2)}"
                     if aop == "Protjekter":
-                        toreturn = f"resultat: {[round(x, 3) for x in vectorlib.Projekter2DVektorUdFraKartesian(*fuldvec2)]}"
+                        toreturn = f"resultat: {vectorlib.Projekter2DVektorUdFraKartesian(*fuldvec2)}"
                     if aop == "Enhed":
                         toreturn = f"resultat: {[round(x, 3) for x in vectorlib.EnhedsVektorFra2DVektor(*vectorlib.Sum2DVektor(*fuldvec2))]}"
                     if aop == "Vinkel":
