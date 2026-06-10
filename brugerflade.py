@@ -176,9 +176,9 @@ def window():
                     if aop == "Sub":
                         toreturn = f"resultat: {vectorlib.Differens2DVektor(*fuldvec2)}"
                         ax.clear()
-                        ax.arrow(0, 0, *dotv1vec, length_includes_head=True, head_width=dotv1vec[0]/20, head_length=dotv1vec[1]/20, color="blue")
-                        ax.arrow(*dotv1vec, -dotv2vec[0], -dotv2vec[1], length_includes_head=True, head_width=dotv2vec[0]/20, head_length=dotv2vec[1]/20, color="red")
-                        ax.arrow(0, 0, *vectorlib.Differens2DVektor(*fuldvec2), length_includes_head=True, head_width=-vectorlib.Differens2DVektor(*fuldvec2)[0]/20, head_length=-vectorlib.Differens2DVektor(*fuldvec2)[1]/20, color="green")
+                        ax.arrow(0, 0, *dotv1vec, length_includes_head=True, head_width=dotv1vec[0]/20, head_length=dotv1vec[1]/20, color="blue").set_label("V1")
+                        ax.arrow(*dotv1vec, -dotv2vec[0], -dotv2vec[1], length_includes_head=True, head_width=dotv2vec[0]/20, head_length=dotv2vec[1]/20, color="red").set_label("V2")
+                        ax.arrow(0, 0, *vectorlib.Differens2DVektor(*fuldvec2), length_includes_head=True, head_width=-vectorlib.Differens2DVektor(*fuldvec2)[0]/20, head_length=-vectorlib.Differens2DVektor(*fuldvec2)[1]/20, color="green").set_label("V1-V2")
                         ax.set_aspect('equal')
                         canvas.draw()
                     if aop == "Protjekter":
