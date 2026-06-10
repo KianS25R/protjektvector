@@ -5,15 +5,20 @@
 import tkinter
 import vectorlib
 import webbrowser
+import matplotlib.backends.backend_tkagg as plttk
+from matplotlib.figure import Figure
 aop = "Sum"
 toreturn = ""
 ## main window ##
 
 def window():
     """vindue/GUI"""
+    fig = Figure(figsize=(5, 4), dpi=100)
+    ax = fig.add_subplot()
+    line = ax.plot(10,10)
     vindue = tkinter.Tk()
     vindue.title("GUI")
-    vindue.geometry("275x155")
+    vindue.geometry("750x400")
     global aop
     global toreturn
     def sumq():
@@ -107,7 +112,8 @@ def window():
 
     def show():
         webbrowser.open("https://github.com/KianS25R/protjektvector/blob/main/LICENSE")
-
+    canvas = plttk.FigureCanvasTkAgg(fig, vindue)
+    canvas.draw()
     frame = tkinter.Frame(vindue, height=155, width=275, bg="#e9e9e9")
     menu = tkinter.Menu(vindue)
     operation = tkinter.Menu(menu)
@@ -133,6 +139,7 @@ def window():
     v2label.place(x=150, y=25)
     v2 = tkinter.Entry(frame)
     v2.place(x=150, y=50)
+    canvas.get_tk_widget().place(x=276, y=0)
 
 
     def dott():
@@ -150,14 +157,30 @@ def window():
             if aop == "Scalar":
                 if len(dotv2vec) == 1:
                     toreturn = f"resultat: {vectorlib.Vektor2DGangeSkalar(*fuldvec2)}"
+                    ax.clear()
+                    ax.arrow(0, 0, vectorlib.Vektor2DGangeSkalar(*fuldvec2)[0], vectorlib.Vektor2DGangeSkalar(*fuldvec2)[1], length_includes_head=True, head_width=vectorlib.Vektor2DGangeSkalar(*fuldvec2)[0]/20, head_length=vectorlib.Vektor2DGangeSkalar(*fuldvec2)[1]/20)
+                    ax.set_aspect('equal')
+                    canvas.draw()
             if aop != "Scalar" and aop != "Length" and dotv2vec[0] != "":
                 if len(dotv2vec) == 2:
                     if aop == "Sum":
                         toreturn = f"resultat: {vectorlib.Sum2DVektor(*fuldvec2)}"
+                        ax.clear()
+                        ax.arrow(0, 0, *dotv1vec, length_includes_head=True, head_width=dotv1vec[0]/20, head_length=dotv1vec[1]/20, color="blue")
+                        ax.arrow(*fuldvec2, length_includes_head=True, head_width=dotv2vec[0]/20, head_length=dotv2vec[1]/20, color="red")
+                        ax.arrow(0,0,*vectorlib.Sum2DVektor(*fuldvec2), length_includes_head=True, head_width=vectorlib.Sum2DVektor(*fuldvec2)[0]/20, head_length=vectorlib.Sum2DVektor(*fuldvec2)[1]/20, color="green")
+                        ax.set_aspect('equal')
+                        canvas.draw()
                     if aop == "Dot":
                         toreturn = f"resultat: {vectorlib.Prikprodukt2DVektor(*fuldvec2)}"
                     if aop == "Sub":
                         toreturn = f"resultat: {vectorlib.Differens2DVektor(*fuldvec2)}"
+                        ax.clear()
+                        ax.arrow(0, 0, *dotv1vec, length_includes_head=True, head_width=dotv1vec[0]/20, head_length=dotv1vec[1]/20, color="blue")
+                        ax.arrow(*dotv1vec, -dotv2vec[0], -dotv2vec[1], length_includes_head=True, head_width=dotv2vec[0]/20, head_length=dotv2vec[1]/20, color="red")
+                        ax.arrow(0, 0, *vectorlib.Differens2DVektor(*fuldvec2), length_includes_head=True, head_width=-vectorlib.Differens2DVektor(*fuldvec2)[0]/20, head_length=-vectorlib.Differens2DVektor(*fuldvec2)[1]/20, color="green")
+                        ax.set_aspect('equal')
+                        canvas.draw()
                     if aop == "Protjekter":
                         toreturn = f"resultat: {vectorlib.Projekter2DVektorUdFraKartesian(*fuldvec2)}"
                     if aop == "Enhed":
@@ -166,6 +189,10 @@ def window():
                         toreturn = f"resultat: {vectorlib.VinkelIForholdTilHindanen2DVektor(*fuldvec2)}"
                     if aop == "Punkt":
                         toreturn = f"resultat: {vectorlib.Vektor2DFraPunkter(*fuldvec2)}"
+                        ax.clear()
+                        ax.arrow(*fuldvec2, length_includes_head=True, head_width=fuldvec2[2]/20, head_length=fuldvec2[3]/20)
+                        ax.set_aspect('equal')
+                        canvas.draw()
             if aop == "Length":
                 toreturn = f"resultat: |V1| = {vectorlib.KartesianTilPolær2DVektor(*fuldvec2)[0]}"
             if aop == "Convkart":
@@ -176,6 +203,11 @@ def window():
                 toreturn = f"resultat: {vectorlib.KartesianTilPolær2DVektor(*fuldvec2)[0]}"
             if aop == "tvær":
                 toreturn = f"resultat: ({vectorlib.TvaerVektor(*fuldvec2)[0]}, {vectorlib.TvaerVektor(*fuldvec2)[1]})"
+                ax.clear()
+                ax.arrow(0, 0, *fuldvec2, length_includes_head=True, head_width=fuldvec2[0]/20, head_length=fuldvec2[1]/20, color="blue")
+                ax.arrow(0, 0, vectorlib.TvaerVektor(*fuldvec2)[0], vectorlib.TvaerVektor(*fuldvec2)[1], head_width=vectorlib.TvaerVektor(*fuldvec2)[0]/20, head_length=vectorlib.TvaerVektor(*fuldvec2)[1]/20, color="green")
+                ax.set_aspect('equal')
+                canvas.draw()
         if len(dotv1vec) == 3:
             if aop == "Scalar":
                 if len(dotv2vec) == 1:
