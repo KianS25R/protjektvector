@@ -5,6 +5,7 @@
 import tkinter
 import vectorlib
 import webbrowser
+from matplotlib.legend import Legend
 import matplotlib.backends.backend_tkagg as plttk
 from matplotlib.figure import Figure
 aop = "Sum"
@@ -140,6 +141,7 @@ def window():
     v2 = tkinter.Entry(frame)
     v2.place(x=150, y=50)
     canvas.get_tk_widget().place(x=276, y=0)
+    
 
     def dott():
         global aop
@@ -159,6 +161,7 @@ def window():
                     ax.clear()
                     ax.arrow(0, 0, vectorlib.Vektor2DGangeSkalar(*fuldvec2)[0], vectorlib.Vektor2DGangeSkalar(*fuldvec2)[1], length_includes_head=True, head_width=vectorlib.Vektor2DGangeSkalar(*fuldvec2)[0]/20, head_length=vectorlib.Vektor2DGangeSkalar(*fuldvec2)[1]/20)
                     ax.set_aspect('equal')
+                    ax.legend(["V1*s"])
                     canvas.draw()
             if aop != "Scalar" and aop != "Length" and dotv2vec[0] != "":
                 if len(dotv2vec) == 2:
@@ -169,6 +172,7 @@ def window():
                         ax.arrow(*fuldvec2, length_includes_head=True, head_width=dotv2vec[0]/20, head_length=dotv2vec[1]/20, color="red")
                         ax.arrow(0,0,*vectorlib.Sum2DVektor(*fuldvec2), length_includes_head=True, head_width=vectorlib.Sum2DVektor(*fuldvec2)[0]/20, head_length=vectorlib.Sum2DVektor(*fuldvec2)[1]/20, color="green")
                         ax.set_aspect('equal')
+                        ax.legend(["V1","V2","V1+V2"])
                         canvas.draw()
                     if aop == "Dot":
                         toreturn = f"resultat: {vectorlib.Prikprodukt2DVektor(*fuldvec2)}"
@@ -179,6 +183,7 @@ def window():
                         ax.arrow(*dotv1vec, -dotv2vec[0], -dotv2vec[1], length_includes_head=True, head_width=dotv2vec[0]/20, head_length=dotv2vec[1]/20, color="red").set_label("V2")
                         ax.arrow(0, 0, *vectorlib.Differens2DVektor(*fuldvec2), length_includes_head=True, head_width=-vectorlib.Differens2DVektor(*fuldvec2)[0]/20, head_length=-vectorlib.Differens2DVektor(*fuldvec2)[1]/20, color="green").set_label("V1-V2")
                         ax.set_aspect('equal')
+                        ax.legend(["V1", "V2", "V1-V2"])
                         canvas.draw()
                     if aop == "Protjekter":
                         toreturn = f"resultat: {vectorlib.Projekter2DVektorUdFraKartesian(*fuldvec2)}"
@@ -191,6 +196,7 @@ def window():
                         ax.clear()
                         ax.arrow(*fuldvec2, length_includes_head=True, head_width=fuldvec2[2]/20, head_length=fuldvec2[3]/20)
                         ax.set_aspect('equal')
+                        ax.legend(["V12"])
                         canvas.draw()
             if aop == "Length":
                 toreturn = f"resultat: |V1| = {vectorlib.KartesianTilPolær2DVektor(*fuldvec2)[0]}"
@@ -206,6 +212,7 @@ def window():
                 ax.arrow(0, 0, *fuldvec2, length_includes_head=True, head_width=fuldvec2[0]/20, head_length=fuldvec2[1]/20, color="blue")
                 ax.arrow(0, 0, vectorlib.TvaerVektor(*fuldvec2)[0], vectorlib.TvaerVektor(*fuldvec2)[1], head_width=vectorlib.TvaerVektor(*fuldvec2)[0]/20, head_length=vectorlib.TvaerVektor(*fuldvec2)[1]/20, color="green")
                 ax.set_aspect('equal')
+                ax.legend(["V1", "V1tvær"])
                 canvas.draw()
         if len(dotv1vec) == 3:
             if aop == "Scalar":
