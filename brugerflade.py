@@ -4,6 +4,7 @@
 
 import tkinter
 import vectorlib
+import webbrowser
 aop = "Sum"
 toreturn = ""
 ## main window ##
@@ -70,6 +71,44 @@ def window():
         v2label.config(state="normal")
         v2.config(state="normal")
 
+    def convkart():
+        global aop
+        aop = "Convkart"
+        v2label.config(text="V2:")
+        v2label.config(state="disable")
+        v2.config(state="disable")
+    
+    def Convpol():
+        global aop
+        aop = "Convpol"
+        v2label.config(text="V2:")
+        v2label.config(state="disable")
+        v2.config(state="disable")
+
+    def punkt():
+        global aop
+        aop = "Punkt"
+        v2label.config(text="V2:")
+        v2label.config(state="normal")
+        v2.config(state="normal")
+    
+    def tvær():
+        global aop
+        aop = "tvær"
+        v2label.config(text="V2:")
+        v2label.config(state="disable")
+        v2.config(state="disable")
+
+    def kryds():
+        global aop
+        aop = "kryds"
+        v2label.config(text="V2:")
+        v2label.config(state="normal")
+        v2.config(state="normal")
+
+    def show():
+        webbrowser.open("https://github.com/KianS25R/protjektvector/blob/main/LICENSE")
+
     frame = tkinter.Frame(vindue, height=155, width=275, bg="#e9e9e9")
     menu = tkinter.Menu(vindue)
     operation = tkinter.Menu(menu)
@@ -82,6 +121,11 @@ def window():
     operation.add_command(label="Vinkel", command=vinkel)
     operation.add_command(label="Protjekter", command=Protjekter)
     operation.add_command(label="Enhed", command=Enhed)
+    operation.add_command(label="Kart -> Polær", command=convkart)
+    operation.add_command(label="Polær -> kart", command=Convpol)
+    operation.add_command(label="Punkter til Vektor", command=punkt)
+    operation.add_command(label="Tværvektor", command=tvær)
+    operation.add_command(label="Kryds", command=kryds)
     v1label = tkinter.Label(frame, text="V1:")
     v1label.place(x=0, y=25)
     v1 = tkinter.Entry(frame)
@@ -98,10 +142,10 @@ def window():
         dotv1vec = str(v1.get()).replace("(", "").replace(")", "").split(",")
         dotv2vec = str(v2.get()).replace("(", "").replace(")", "").split(",")
         dotv1vec = [float(x) for x in dotv1vec]
-        if aop != "Length" and dotv2vec[0] != "":
+        if aop != "Length" and dotv2vec[0] != "" and aop != "Convpol" and aop != "tvær":
             dotv2vec = [float(x) for x in dotv2vec]
             fuldvec2 = [*dotv1vec, *dotv2vec]
-        if aop == "Length" or (aop == "Vinkel" and dotv2vec[0] == ""):
+        if aop == "Length" or aop == "Convpol" or aop == "tvær" or aop == "Convkart" or (aop == "Vinkel" and dotv2vec[0] == ""):
             fuldvec2 = dotv1vec
         if len(dotv1vec) == 2:
             if aop == "Scalar":
@@ -121,11 +165,18 @@ def window():
                         toreturn = f"resultat: {[round(x, 3) for x in vectorlib.EnhedsVektorFra2DVektor(*vectorlib.Sum2DVektor(*fuldvec2))]}"
                     if aop == "Vinkel":
                         toreturn = f"resultat: {vectorlib.VinkelIForholdTilHindanen2DVektor(*fuldvec2)}"
+                    if aop == "Punkt":
+                        toreturn = f"resultat: {vectorlib.Vektor2DFraPunkter(*fuldvec2)}"
             if aop == "Length":
                 toreturn = f"resultat: |V1| = {vectorlib.KartesianTilPolær2DVektor(*fuldvec2)[0]}"
-            
+            if aop == "Convkart":
+                        toreturn = f"længde: {round(vectorlib.KartesianTilPolær2DVektor(*fuldvec2)[0], 4)} vinkel: {round(vectorlib.KartesianTilPolær2DVektor(*fuldvec2)[1], 4)}"
+            if aop == "Convpol":
+                toreturn = f"resultat: ({round(vectorlib.PolærTilKartesian2DVektor(*fuldvec2)[0], 4)}, {round(vectorlib.PolærTilKartesian2DVektor(*fuldvec2)[1], 4)})"
             if aop == "Vinkel" and dotv2vec[0] == "":
                 toreturn = f"resultat: {vectorlib.KartesianTilPolær2DVektor(*fuldvec2)[0]}"
+            if aop == "tvær":
+                toreturn = f"resultat: ({vectorlib.TvaerVektor(*fuldvec2)[0]}, {vectorlib.TvaerVektor(*fuldvec2)[1]})"
         if len(dotv1vec) == 3:
             if aop == "Scalar":
                 if len(dotv2vec) == 1:
@@ -144,6 +195,10 @@ def window():
                         toreturn = f"resultat: {vectorlib.VinkelIForholdTilHindanen3DVektor(*fuldvec2)}"
                     if aop == "Enhed":
                         toreturn = f"resultat: {[round(x, 3) for x in vectorlib.EnhedsVektorFra3DVektor(*vectorlib.Sum3DVektor(*fuldvec2))]}"
+                    if aop == "Punkt":
+                        toreturn = f"reslutat: {vectorlib.Vektor3DFraPunkter(*fuldvec2)}"
+                    if aop == "kryds":
+                        toreturn = f"resultat: {vectorlib.Krydsprodukt(*fuldvec2)}"
             if aop == "Length":
                 toreturn = f"resultat: |V1| =  {vectorlib.Længde3DVektor(*fuldvec2)}"
         res.config(text=toreturn)
@@ -153,6 +208,9 @@ def window():
     dot.place(x=100, y=100)
     res.place(x=100, y=130)
     frame.place(x=0, y=0)
+    lisence = tkinter.Menu(menu)
+    menu.add_cascade(menu=lisence, label="License")
+    lisence.add_command(label="Show License", command=show)
     vindue.config(menu=menu)
     vindue.update()
 
