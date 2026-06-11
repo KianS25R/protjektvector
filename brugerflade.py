@@ -19,7 +19,7 @@ def window():
     line = ax.plot(10,10)
     vindue = tkinter.Tk()
     vindue.title("GUI")
-    vindue.geometry("750x400")
+    vindue.geometry("1500x400")
     global aop
     global toreturn
     def sumq():
@@ -141,6 +141,11 @@ def window():
     v2 = tkinter.Entry(frame)
     v2.place(x=150, y=50)
     canvas.get_tk_widget().place(x=276, y=0)
+    fig2 = Figure(figsize=(5, 4), dpi=100)
+    ax2 = fig2.add_subplot()
+    ax2.set_axis_off()
+    latex = plttk.FigureCanvasTkAgg(fig2, master=vindue)
+    latex.get_tk_widget().place(x=750, y=0)
     
 
     def dott():
@@ -166,6 +171,10 @@ def window():
                     ax.set_aspect('equal')
                     ax.legend(["V1*s"])
                     canvas.draw()
+                    ax2.clear()
+                    text = r"$ \vec V1 = \binom{" + f"{vectorlib.Vektor2DGangeSkalar(*fuldvec2)[0]}" + "}{" + f"{vectorlib.Vektor2DGangeSkalar(*fuldvec2)[1]}" + "} $"
+                    ax2.text(.1, .5, text)
+                    latex.draw()
             if aop != "Scalar" and aop != "Length" and dotv2vec[0] != "":
                 if len(dotv2vec) == 2:
                     if aop == "Sum":
@@ -180,6 +189,10 @@ def window():
                         ax.set_aspect('equal')
                         ax.legend(["V1","V2","V1+V2"])
                         canvas.draw()
+                        ax2.clear()
+                        text = r"$ \vec V_{1+2} = \binom{" + f"{dotv1vec[0]} + {dotv2vec[0]}" + "}{" + f"{dotv1vec[1]} + {dotv2vec[1]}" + r"} = \binom{" + f"{vectorlib.Sum2DVektor(*fuldvec2)[0]}" + "}{" + f"{vectorlib.Sum2DVektor(*fuldvec2)[1]}" + "} $"
+                        ax2.text(.1, .5, text)
+                        latex.draw()
                     if aop == "Dot":
                         toreturn = f"resultat: {vectorlib.Prikprodukt2DVektor(*fuldvec2)}"
                     if aop == "Sub":
@@ -194,6 +207,10 @@ def window():
                         ax.set_aspect('equal')
                         ax.legend(["V1", "V2", "V1-V2"])
                         canvas.draw()
+                        ax2.clear()
+                        text = r"$ \vec V_{1-2} = \binom{" + f"{dotv1vec[0]} - {dotv2vec[0]}" + "}{" + f"{dotv1vec[1]} - {dotv2vec[1]}" + r"} = \binom{" + f"{vectorlib.Differens2DVektor(*fuldvec2)[0]}" + "}{" + f"{vectorlib.Differens2DVektor(*fuldvec2)[1]}" + "} $"
+                        ax2.text(.1, .5, text)
+                        latex.draw()
                     if aop == "Protjekter":
                         toreturn = f"resultat: {vectorlib.Projekter2DVektorUdFraKartesian(*fuldvec2)}"
                     if aop == "Enhed":
@@ -206,10 +223,15 @@ def window():
                         ax = fig.add_subplot()
                         line = ax.plot(10, 10)
                         canvas.draw()
-                        ax.arrow(*fuldvec2, length_includes_head=True, head_width=fuldvec2[2]/20, head_length=fuldvec2[3]/20)
+                        ax.arrow(*dotv1vec, *vectorlib.Vektor2DFraPunkter(*fuldvec2), length_includes_head=True, head_width=fuldvec2[2]/20, head_length=fuldvec2[3]/20)
                         ax.set_aspect('equal')
                         ax.legend(["V12"])
                         canvas.draw()
+                        canvas.draw()
+                        ax2.clear()
+                        text = r"$ \vec V_{12} = \binom{" + f"{vectorlib.Vektor2DFraPunkter(*fuldvec2)[0]}" + "}{" + f"{vectorlib.Vektor2DFraPunkter(*fuldvec2)[1]}" + "} $"
+                        ax2.text(0.1, 0.5, text)
+                        latex.draw()
             if aop == "Length":
                 toreturn = f"resultat: |V1| = {vectorlib.KartesianTilPolær2DVektor(*fuldvec2)[0]}"
             if aop == "Convkart":
@@ -333,8 +355,14 @@ def window():
         lok = filedialog.asksaveasfilename(title="Save As image", defaultextension=".png", filetypes=[("Portable Network Graphics", ".png"), ("Joint Photographic Experts Group",".jpeg"), ("Graphics Interchange Format",".gif"), ("fuck you!", ".webp"), ("Encapsulated PostScript",".eps"), ("Portable Document Format", ".pdf"), ("Progressive Graphics File", ".pgf"), ("PostScript", ".ps"), ("raw", ".raw"), ("RGBA file", ".rgba"), ("Standard Vector Graphics", ".svg"), ("compressed Scalable Vector Graphics",".svgz"), ("Tagged Image File", ".tif"), ("Tagged Image File Format", ".tiff")], initialfile="Vector")
         fig.savefig(lok)
 
+    def save2():
+        from tkinter import filedialog
+        lok = filedialog.asksaveasfilename(title="Save As image", defaultextension=".png", filetypes=[("Portable Network Graphics", ".png"), ("Joint Photographic Experts Group", ".jpeg"), ("Graphics Interchange Format", ".gif"), ("fuck you!", ".webp"), ("Encapsulated PostScript", ".eps"), ("Portable Document Format", ".pdf"), ("Progressive Graphics File", ".pgf"), ("PostScript", ".ps"), ("raw", ".raw"), ("RGBA file", ".rgba"), ("Standard Vector Graphics", ".svg"), ("compressed Scalable Vector Graphics", ".svgz"), ("Tagged Image File", ".tif"), ("Tagged Image File Format", ".tiff")], initialfile="Vector")
+        fig2.savefig(lok)
 
-    file.add_command(label="Save Picture", command=save)
+
+    file.add_command(label="Save vector as Picture", command=save)
+    file.add_command(label="Save math as Picture", command=save2)
     vindue.config(menu=menu)
     vindue.update()
 
