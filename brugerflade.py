@@ -330,7 +330,7 @@ def window():
 
     def save():
         from tkinter import filedialog
-        lok = filedialog.asksaveasfilename(title="Save As image", defaultextension=".png", filetypes=[("Portable Network Graphics", ".png"), ("Joint Photographic Experts Group",".jpeg")], initialfile="Vector")
+        lok = filedialog.asksaveasfilename(title="Save As image", defaultextension=".png", filetypes=[("Portable Network Graphics", ".png"), ("Joint Photographic Experts Group",".jpeg"), ("Graphics Interchange Format",".gif"), ("fuck you!", ".webp"), ("Encapsulated PostScript",".eps"), ("Portable Document Format", ".pdf"), ("Progressive Graphics File", ".pgf"), ("PostScript", ".ps"), ("raw", ".raw"), ("RGBA file", ".rgba"), ("Standard Vector Graphics", ".svg"), ("compressed Scalable Vector Graphics",".svgz"), ("Tagged Image File", ".tif"), ("Tagged Image File Format", ".tiff")], initialfile="Vector")
         fig.savefig(lok)
 
 
