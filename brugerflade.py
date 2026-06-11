@@ -158,7 +158,10 @@ def window():
             if aop == "Scalar":
                 if len(dotv2vec) == 1:
                     toreturn = f"resultat: {vectorlib.Vektor2DGangeSkalar(*fuldvec2)}"
-                    ax.clear()
+                    fig.clf()
+                    ax = fig.add_subplot()
+                    canvas.draw()
+                    line = ax.plot(10, 10)
                     ax.arrow(0, 0, vectorlib.Vektor2DGangeSkalar(*fuldvec2)[0], vectorlib.Vektor2DGangeSkalar(*fuldvec2)[1], length_includes_head=True, head_width=vectorlib.Vektor2DGangeSkalar(*fuldvec2)[0]/20, head_length=vectorlib.Vektor2DGangeSkalar(*fuldvec2)[1]/20)
                     ax.set_aspect('equal')
                     ax.legend(["V1*s"])
@@ -167,7 +170,10 @@ def window():
                 if len(dotv2vec) == 2:
                     if aop == "Sum":
                         toreturn = f"resultat: {vectorlib.Sum2DVektor(*fuldvec2)}"
-                        ax.clear()
+                        fig.clf()
+                        ax = fig.add_subplot()
+                        canvas.draw()
+                        line = ax.plot(10, 10)
                         ax.arrow(0, 0, *dotv1vec, length_includes_head=True, head_width=dotv1vec[0]/20, head_length=dotv1vec[1]/20, color="blue")
                         ax.arrow(*fuldvec2, length_includes_head=True, head_width=dotv2vec[0]/20, head_length=dotv2vec[1]/20, color="red")
                         ax.arrow(0,0,*vectorlib.Sum2DVektor(*fuldvec2), length_includes_head=True, head_width=vectorlib.Sum2DVektor(*fuldvec2)[0]/20, head_length=vectorlib.Sum2DVektor(*fuldvec2)[1]/20, color="green")
@@ -178,7 +184,10 @@ def window():
                         toreturn = f"resultat: {vectorlib.Prikprodukt2DVektor(*fuldvec2)}"
                     if aop == "Sub":
                         toreturn = f"resultat: {vectorlib.Differens2DVektor(*fuldvec2)}"
-                        ax.clear()
+                        fig.clf()
+                        ax = fig.add_subplot()
+                        line = ax.plot(10, 10)
+                        canvas.draw()
                         ax.arrow(0, 0, *dotv1vec, length_includes_head=True, head_width=dotv1vec[0]/20, head_length=dotv1vec[1]/20, color="blue").set_label("V1")
                         ax.arrow(*dotv1vec, -dotv2vec[0], -dotv2vec[1], length_includes_head=True, head_width=dotv2vec[0]/20, head_length=dotv2vec[1]/20, color="red").set_label("V2")
                         ax.arrow(0, 0, *vectorlib.Differens2DVektor(*fuldvec2), length_includes_head=True, head_width=-vectorlib.Differens2DVektor(*fuldvec2)[0]/20, head_length=-vectorlib.Differens2DVektor(*fuldvec2)[1]/20, color="green").set_label("V1-V2")
@@ -193,7 +202,10 @@ def window():
                         toreturn = f"resultat: {vectorlib.VinkelIForholdTilHindanen2DVektor(*fuldvec2)}"
                     if aop == "Punkt":
                         toreturn = f"resultat: {vectorlib.Vektor2DFraPunkter(*fuldvec2)}"
-                        ax.clear()
+                        fig.clf()
+                        ax = fig.add_subplot()
+                        line = ax.plot(10, 10)
+                        canvas.draw()
                         ax.arrow(*fuldvec2, length_includes_head=True, head_width=fuldvec2[2]/20, head_length=fuldvec2[3]/20)
                         ax.set_aspect('equal')
                         ax.legend(["V12"])
@@ -208,7 +220,10 @@ def window():
                 toreturn = f"resultat: {vectorlib.KartesianTilPolær2DVektor(*fuldvec2)[0]}"
             if aop == "tvær":
                 toreturn = f"resultat: ({vectorlib.TvaerVektor(*fuldvec2)[0]}, {vectorlib.TvaerVektor(*fuldvec2)[1]})"
-                ax.clear()
+                fig.clf()
+                ax = fig.add_subplot()
+                line = ax.plot(10, 10)
+                canvas.draw()
                 ax.arrow(0, 0, *fuldvec2, length_includes_head=True, head_width=fuldvec2[0]/20, head_length=fuldvec2[1]/20, color="blue")
                 ax.arrow(0, 0, vectorlib.TvaerVektor(*fuldvec2)[0], vectorlib.TvaerVektor(*fuldvec2)[1], head_width=vectorlib.TvaerVektor(*fuldvec2)[0]/20, head_length=vectorlib.TvaerVektor(*fuldvec2)[1]/20, color="green")
                 ax.set_aspect('equal')
@@ -222,10 +237,41 @@ def window():
                 if len(dotv2vec) == 3:
                     if aop == "Sum":
                         toreturn = f"resultat: {vectorlib.Sum3DVektor(*fuldvec2)}"
+                        fig.clf()
+                        ax = fig.add_subplot(projection="3d")
+                        e = vectorlib.Sum3DVektor(*fuldvec2)
+                        ed = max((*fuldvec2, *e))
+                        ax.set_xlim([-ed, ed])
+                        ax.set_ylim([-ed, ed])
+                        ax.set_zlim([-ed, ed])
+                        canvas.draw()
+                        line = ax.plot(10, 10)
+                        d = dotv1vec
+                        ax.quiver(0,0,0,*dotv1vec, color="blue")
+                        ax.quiver(*dotv1vec, *dotv2vec, color="red")
+                        ax.quiver(0,0,0, *e, color="green")
+                        ax.legend(["V1", "V2", "V1+V2"])
+                        canvas.draw()
                     if aop == "Dot":
                         toreturn = f"resultat: {vectorlib.Prikprodukt3DVektor(*fuldvec2)}"
                     if aop == "Sub":
                         toreturn = f"resultat: {vectorlib.Differens3DVektor(*fuldvec2)}"
+                        fig.clf()
+                        ax = fig.add_subplot(projection="3d")
+                        e = vectorlib.Differens3DVektor(*fuldvec2)
+                        ed = max((*fuldvec2, *e))
+                        ax.set_xlim([-ed, ed])
+                        ax.set_ylim([-ed, ed])
+                        ax.set_zlim([-ed, ed])
+                        canvas.draw()
+                        line = ax.plot(10, 10)
+                        d = dotv1vec
+                        f = (-dotv2vec[0], -dotv2vec[1], -dotv2vec[2])
+                        ax.quiver(0, 0, 0, *dotv1vec, color="blue")
+                        ax.quiver(*dotv1vec, *f, color="red")
+                        ax.quiver(0, 0, 0, *e, color="green")
+                        ax.legend(["V1","V2","V1-V2"])
+                        canvas.draw()
                     if aop == "Protjekter":
                         toreturn = f"resultat: {vectorlib.Projekter3DVektorUdFraKartesian(*fuldvec2)}"
                     if aop == "Vinkel":
@@ -234,8 +280,30 @@ def window():
                         toreturn = f"resultat: {[round(x, 3) for x in vectorlib.EnhedsVektorFra3DVektor(*vectorlib.Sum3DVektor(*fuldvec2))]}"
                     if aop == "Punkt":
                         toreturn = f"reslutat: {vectorlib.Vektor3DFraPunkter(*fuldvec2)}"
+                        fig.clf()
+                        ax = fig.add_subplot(projection="3d")
+                        ax.set_xlim([dotv1vec[0], dotv2vec[0]])
+                        ax.set_ylim([dotv1vec[1], dotv2vec[1]])
+                        ax.set_zlim([dotv1vec[2], dotv2vec[2]])
+                        canvas.draw()
+                        ax.quiver(*dotv1vec, *vectorlib.Vektor3DFraPunkter(*fuldvec2), color="green")
+                        ax.legend(["V12"])
+                        canvas.draw()
                     if aop == "kryds":
                         toreturn = f"resultat: {vectorlib.Krydsprodukt(*fuldvec2)}"
+                        fig.clf()
+                        ax = fig.add_subplot(projection="3d")
+                        e = vectorlib.Krydsprodukt(*fuldvec2)
+                        ed = max((*fuldvec2, *e))
+                        ax.set_xlim([-ed, ed])
+                        ax.set_ylim([-ed, ed])
+                        ax.set_zlim([-ed, ed])
+                        canvas.draw()
+                        ax.quiver(0,0,0, *dotv1vec, color="blue")
+                        ax.quiver(0, 0, 0, *dotv2vec, color="red")
+                        ax.quiver(0, 0, 0, *vectorlib.Krydsprodukt(*fuldvec2), color="green")
+                        ax.legend(["V1", "V2","V12kryds"])
+                        canvas.draw()
             if aop == "Length":
                 toreturn = f"resultat: |V1| =  {vectorlib.Længde3DVektor(*fuldvec2)}"
         res.config(text=toreturn)
