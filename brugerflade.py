@@ -233,6 +233,15 @@ def window():
             if aop == "Scalar":
                 if len(dotv2vec) == 1:
                     toreturn = f"resultat: {vectorlib.Vektor3DGangeSkalar(*fuldvec2)}"
+                    e = vectorlib.Vektor3DGangeSkalar(*fuldvec2)
+                    fig.clf()
+                    ax = fig.add_subplot(projection="3d")
+                    ax.set_xlim([0, e[0]])
+                    ax.set_ylim([0, e[1]])
+                    ax.set_zlim([0, e[2]])
+                    canvas.draw()
+                    ax.quiver(0,0,0, *e, color="green")
+                    canvas.draw()
             if aop != "Scalar" and aop != "Length" and dotv2vec[0] != "":
                 if len(dotv2vec) == 3:
                     if aop == "Sum":
