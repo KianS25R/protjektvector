@@ -325,6 +325,16 @@ def window():
     lisence = tkinter.Menu(menu)
     menu.add_cascade(menu=lisence, label="License")
     lisence.add_command(label="Show License", command=show)
+    file = tkinter.Menu(menu)
+    menu.add_cascade(label="File", menu=file)
+
+    def save():
+        from tkinter import filedialog
+        lok = filedialog.asksaveasfilename(title="Save As image", defaultextension=".png", filetypes=[("Portable Network Graphics", ".png"), ("Joint Photographic Experts Group",".jpeg")], initialfile="Vector")
+        fig.savefig(lok)
+
+
+    file.add_command(label="Save Picture", command=save)
     vindue.config(menu=menu)
     vindue.update()
 
